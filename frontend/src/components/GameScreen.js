@@ -1,14 +1,17 @@
 /* eslint-disable no-unused-expressions */
 import React, { useEffect, useRef } from "react";
 import { Div } from "@vkontakte/vkui";
+import { gameClear } from "../functions/gameClear";
 
-function GameScreen({startFunction}) {
+function GameScreen({ startFunction }) {
   const canvas = useRef();
 
   useEffect(() => {
+    startFunction(canvas.current);
 
-    startFunction(canvas.current)
-       
+    return () => {
+      gameClear();
+    };
   }, [canvas, startFunction]);
 
   return (

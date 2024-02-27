@@ -6,6 +6,7 @@ import mnogogolImg from "./res/mnogogol.png";
 import mnogozadImg from "./res/mnogozad.png";
 import aplImg from "./res/apl.png";
 import gameOverImg from "./res/gameOver.png";
+import { getInterval } from "../../functions/gameClear";
 
 export function snakeStart(canvas) {
   const width = canvas.width;
@@ -391,7 +392,7 @@ export function snakeStart(canvas) {
     });
   }
 
-  document.addEventListener("keydown", (e) => {
+  function keyDown(e) {
     e.preventDefault();
     const key = e.code;
     if (key === "ArrowUp") {
@@ -408,7 +409,13 @@ export function snakeStart(canvas) {
       over = false;
       start();
     }
-  });
+  }
+
+  document.addEventListener("keydown", keyDown);
+
+  function removeElistenerSnake() {
+    document.removeEventListener("keydown", keyDown);
+  }
 
   class Aple {
     constructor(cell) {
@@ -437,14 +444,7 @@ export function snakeStart(canvas) {
     }
   }
 
-  //   const letStart = {
-  //     x: 0,
-  //     y: 0,
-  //     width: 30,
-  //     takt: 0,
-  //   };
-
-  setInterval(() => {
+  const intervalData = setInterval(() => {
     ctx.clearRect(0, 0, width, height);
     ctx.drawImage(floor, 0, 0, 600, 440, 0, 0, 600, 600);
     drawContur();
@@ -476,4 +476,6 @@ export function snakeStart(canvas) {
     ctx.fillText(`score : ${score}`, 670, 40);
     snack && ctx.fillText(`speed : ${snack.speed.toFixed(2)}`, 670, 80);
   }, 10);
+
+  getInterval(intervalData, removeElistenerSnake);
 }

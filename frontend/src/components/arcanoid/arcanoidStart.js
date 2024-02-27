@@ -1,3 +1,5 @@
+import { getInterval } from "../../functions/gameClear";
+
 /* eslint-disable no-unused-expressions */
 export function arcanoidStart(canvas) {
   const ctx = canvas.getContext("2d");
@@ -522,7 +524,7 @@ export function arcanoidStart(canvas) {
     onCheckLines = onCheckLines.concat(room.lines);
   };
 
-  setInterval(() => {
+const intervalData = setInterval(() => {
     ctx.clearRect(0, 0, width, height);
     ctx.fillStyle = 'white';
     ctx.fillRect(0, 0, width, height);
@@ -566,4 +568,7 @@ export function arcanoidStart(canvas) {
       ctx.fillRect(cellOnDraw.x, cellOnDraw.y, 20, 10);
     }
   }, 30);
+
+getInterval(intervalData)
+
 }
